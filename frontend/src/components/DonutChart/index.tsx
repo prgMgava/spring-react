@@ -9,7 +9,10 @@ interface ChartData {
 }
 
 const DonutChart = () => {
-  const [chartData, setChartData] = useState({} as ChartData);
+  const [chartData, setChartData] = useState<ChartData>({
+    labels: [],
+    series: [],
+  });
 
   useEffect(() => {
     requests.get("/sales/amount-by-seller").then((response) => {
@@ -18,8 +21,7 @@ const DonutChart = () => {
       const mySeries = data.map((x) => x.sum);
       setChartData({ labels: myLabels, series: mySeries });
     });
-  },[]);
- 
+  }, []);
 
   const options = {
     legend: {
